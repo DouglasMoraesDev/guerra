@@ -1,0 +1,224 @@
+/* Estilos Globais */
+body {
+    color: #f0f8ff;
+    background-color: #000000;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* Container Geral */
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilo para os containers dentro do dashboard */
+.dashboard-container {
+    font-family: 'Montserrat';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+    background-color: #f66e0e;
+    border: 1px solid #fbf8f8;
+    border-radius: 8px;
+    margin: 5px ;
+    padding: 5px;
+}
+
+/* Estilos específicos para o container da tabela de clientes */
+#clientTableContainer {
+    background-color: #f66e0e;
+    border: 1px solid #95A5A6;
+    border-radius: 8px;
+    margin: 20px;
+    padding: 20px;
+}
+
+#clientTableContainer h2 {
+    text-align: center;
+    font-family: 'Oxanium';
+    font-size: 1.75rem;
+    color: #F5F5F5;
+}
+
+/* Garantir que os botões de ação fiquem lado a lado */
+#clientTable td#acoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1px; /* Espaço entre os botões, ajuste conforme necessário */
+}
+
+
+label {
+    font-family: 'Oxanium';
+    font-weight: 600;
+    color: #000000;
+}
+
+/* Estilo da tela de login */
+#loginDiv {
+    font-family: 'Oxanium';
+    font-size: 1.25rem;
+    color: #fffefe;
+    background: #f66e0e;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Títulos */
+h2, h3 {
+    font-family: 'Oxanium';
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+}
+h1{
+    text-align: center;
+    font-family: 'Oxanium';
+    font-size: 2.75rem;
+    color: #000000;
+}
+
+
+
+/* Campos de entrada */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+    font-family: 'Montserrat';
+    width: 100%;
+    padding: 8px;
+    margin: 10px -10px;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Botões */
+button {
+    font-family: 'Oxanium';
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #424141;
+}
+
+/* Tabela de Clientes */
+#clientTable {
+    margin-top: 20px;
+    width: 100%;
+    
+    overflow-x: auto;
+    
+}
+
+#clientTable table {
+    
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#clientTable th, 
+#clientTable td {
+    padding: 4px;
+    min-width: 80px;
+    text-align: left;
+    border: 1px solid #000000;
+}
+
+#clientTable th {
+    background-color: #00000d;
+    color: #fffefe;
+}
+
+
+/* Lista de Clientes com 10 Pontos */
+ul#clients {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul#clients li {
+    margin: 1.5rem 0;
+    padding: 10px;
+    background-color: #f66e0e;
+    border-radius: 4px;
+}
+
+footer, a{
+    font-family: 'Oxanium';
+    color: #f0f8ff;
+    bottom: 0 ;
+    text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    #clientTable table {
+        font-size: 0.8em;
+    }
+    
+    #clientTable th, 
+    #clientTable td {
+        padding: 2px 1px; /* Diminui o espaço interno */
+        min-width: 40px;  /* Diminui a largura mínima */
+    }
+}
+    
+    /* Login */
+    #loginDiv {
+        width: 90%;
+        font-size: 1rem;
+        padding: 15px;
+    }
+    
+    /* Dashboard Containers */
+    .dashboard-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    /* Títulos */
+    h1 {
+        font-size: 2rem;
+    }
+    h2, h3 {
+        font-size: 1.25rem;
+    }
+    
+    /* Inputs e Botões */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    select,
+    button {
+        font-size: 0.9em;
+    }
+    
+    /* Tabela de Clientes - ajuste */
+    #clientTable table {
+        font-size: 0.8em;
+    }
+    
+    #clientTable th, 
+    #clientTable td {
+        padding: 3px 2px;
+        min-width: 30px;
+    }
