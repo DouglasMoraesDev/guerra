@@ -16,7 +16,7 @@ function resetClientPoints(client) {
     const clients = JSON.parse(localStorage.getItem('clients')) || [];
     const clientIndex = clients.findIndex(c => c.fullName === client.fullName);  // Corrigido para usar fullName
 
-    if (clientIndex > -1) {
+    if (clientIndex >= 0) {
         clients[clientIndex].points = 0;  // Zera os pontos
         localStorage.setItem('clients', JSON.stringify(clients));  // Atualiza o localStorage
         displayClients();  // Recarrega a lista de clientes

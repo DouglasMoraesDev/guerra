@@ -1,3 +1,15 @@
+// Função para gerar um ID único (incremental) para cada novo cliente
+function generateId() {
+    const clients = JSON.parse(localStorage.getItem('clients')) || [];
+    let maxId = 0;
+    clients.forEach(client => {
+        if (client.id && client.id > maxId) {
+            maxId = client.id;
+        }
+    });
+    return maxId + 1;
+}
+
 // Usuários existentes (usuário padrão e administrador)
 const users = [
     { username: 'Diego', password: '1234' },
@@ -35,15 +47,16 @@ if (localStorage.getItem('isLoggedIn') === 'true') {
     loadClients();
 }
 
-// Função para carregar os clientes com botões de editar e excluir
+// Função para carregar os clientes e renderizar a tabela
 function loadClients() {
     const clients = JSON.parse(localStorage.getItem('clients')) || [];
     const clientTable = document.getElementById('clientTable');
-    let tableContent = '<table><tr><th>Nome Completo</th><th>Email</th><th>Telefone</th><th>Pontos</th><th>Ações</th></tr>';
+    let tableContent = '<table><tr><th>ID</th><th>Nome Completo</th><th>Email</th><th>Telefone</th><th>Pontos</th><th>Ações</th></tr>';
     
     clients.forEach((client, index) => {
         tableContent += `
             <tr>
+                <td>${client.id || '-'}</td>
                 <td>${client.fullName}</td>
                 <td>${client.email}</td>
                 <td>${client.phone}</td>
@@ -67,7 +80,7 @@ function addClient() {
     const clientFullName = document.getElementById('clientFullName').value;
     const clientPhone = document.getElementById('clientPhone').value;
     const clientEmail = document.getElementById('clientEmail').value;
-    const clientPoints = parseInt(document.getElementById('clientPoints').value);
+    const clientPoints = parseInt(document.getElementById('clientPoints').value) || 0;
 
     if (!clientFullName || !clientPhone || !clientEmail) {
         alert('Por favor, preencha todos os campos!');
@@ -89,11 +102,14 @@ function addClient() {
        return;
     }
 
+    // Cria o novo cliente com a estrutura desejada
     const newClient = {
+        id: generateId(),
         fullName: clientFullName,
         phone: clientPhone,
         email: clientEmail,
-        points: clientPoints
+        points: clientPoints,
+        establishmentId: 2 // Define o ID do estabelecimento como 2
     };
 
     clients.push(newClient);
@@ -131,7 +147,7 @@ function editClient(index) {
         client.fullName = document.getElementById('clientFullName').value;
         client.phone = document.getElementById('clientPhone').value;
         client.email = document.getElementById('clientEmail').value;
-        client.points = parseInt(document.getElementById('clientPoints').value);
+        client.points = parseInt(document.getElementById('clientPoints').value) || 0;
         clients[index] = client;
         localStorage.setItem('clients', JSON.stringify(clients));
 
@@ -214,9 +230,19 @@ document.getElementById('importFile').addEventListener('change', event => {
         reader.onload = function(e) {
             try {
                 const importedClients = JSON.parse(e.target.result);
-                localStorage.setItem('clients', JSON.stringify(importedClients));
+                // Atualiza cada cliente para ter a estrutura completa
+                const updatedClients = importedClients.map(client => {
+                    return {
+                        id: client.id || generateId(),
+                        fullName: client.fullName,
+                        phone: client.phone,
+                        email: client.email,
+                        points: client.points,
+                        establishmentId: 2
+                    };
+                });
+                localStorage.setItem('clients', JSON.stringify(updatedClients));
                 alert('Clientes importados com sucesso!');
-
                 // Recarrega a página para atualizar a tabela
                 location.reload();
             } catch (error) {
@@ -227,7 +253,7 @@ document.getElementById('importFile').addEventListener('change', event => {
     }
 });
 
-// Função para exibir os clientes e seus pontos
+// Função para exibir os clientes e seus pontos (lista de clientes com 10 ou mais pontos)
 function displayClients() {
     const clients = JSON.parse(localStorage.getItem('clients')) || [];
     const clientList = document.getElementById('clients');
@@ -249,7 +275,7 @@ function displayClients() {
     });
 }
 
-// Função para atualizar os pontos do cliente 
+// Função para atualizar os pontos do cliente (usada para integração com voucher, se necessário)
 function updateClientPoints(clientId, points) {
     const clients = JSON.parse(localStorage.getItem('clients')) || [];
     const clientIndex = clients.findIndex(c => c.id === clientId);
@@ -263,3 +289,12 @@ function updateClientPoints(clientId, points) {
 
 // Chama a função para exibir os clientes ao carregar a página
 displayClients();
+
+// Exemplo de função para enviar voucher (mantida do original)
+function sendVoucher(client) {
+    // Exemplo: abre o WhatsApp com uma mensagem do voucher
+    const voucherMessage = `Parabéns ${client.fullName}, você ganhou um voucher!`;
+    const encodedMessage = encodeURIComponent(voucherMessage);
+    const whatsappUrl = `https://wa.me/${client.phone}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+}
