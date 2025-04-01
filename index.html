@@ -1,95 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guerra Estética</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="logo/favicon.ico" type="image/x-icon">
+  <title>Cartão Fidelidade Dashboard</title>
+  <!-- Estilos e fontes -->
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Login -->
-        <div id="loginDiv">
-            <h2>Login</h2>
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" placeholder="Digite seu nome de usuário">
-            <label for="password">Senha:</label>
-            <input type="password" id="password" placeholder="Digite sua senha">
-            <button id="loginBtn">Entrar</button>
-        </div>
-    </div>
+  <!-- Header: Título e Logo -->
+  <header>
+    <h1>Cartão Fidelidade</h1>
+    <img src="Logo.jpeg" alt="Logo da Empresa">
+  </header>
 
-    <div id="dashboard" style="display:none;">
+  <!-- Menu de Navegação -->
+  <nav>
+    <ul>
+      <li data-section="home">Home</li>
+      <li data-section="tabelaClientes">Tabela Clientes</li>
+      <li data-section="adicionarCliente">Adicionar Cliente</li>
+      <li data-section="adicionarPontos">Adicionar Pontos</li>
+      <li data-section="editarCliente">Editar Cliente</li>
+      <li data-section="voucher">Voucher</li>
+    </ul>
+  </nav>
 
-          <!-- Container: Bem-vindo ao Sistema -->
-    <div class="dashboard-container header-container">
-        <h1>Cartão Fidelidade</h1>
-        <img src="Logo.jpeg" alt="Logo">
-    </div>
+  <!-- Seções -->
+  <div id="home" class="section active">
+    <h2>Bem-vindo à Dashboard</h2>
+    <p>Aqui você encontra uma visão geral do seu sistema de Cartão Fidelidade.</p>
+  </div>
 
-    <!-- Container: Tabela de Clientes -->
-    <div class="dashboard-container" id="clientTableContainer">
-        <h2>Tabela de Clientes</h2>
-        <div id="clientTable"></div>
-    </div>
+  <div id="tabelaClientes" class="section">
+    <h2>Tabela de Clientes</h2>
+    <table id="clientTable">
+      <caption>Tabela de Clientes</caption>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Pontos</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="clientTableBody">
+        <!-- Conteúdo via JavaScript -->
+      </tbody>
+    </table>
+  </div>
 
-        <!-- Container: Adicionar Novo Cliente -->
-        <div class="dashboard-container">
-            <h3>Adicionar Novo Cliente</h3>
-            <label for="clientFullName">Nome Completo:</label>
-            <input type="text" id="clientFullName" placeholder="Nome Completo do Cliente">
-            <label for="clientPhone">Número de Telefone:</label>
-            <input type="text" id="clientPhone" placeholder="Número de Telefone">
-            <label for="clientEmail">Email:</label>
-            <input type="email" id="clientEmail" placeholder="Email do Cliente">
-            <label for="clientPoints">Pontos:</label>
-            <input type="number" id="clientPoints" min="0" value="0">
-            <button id="saveClientBtn">Salvar Cliente</button>
-        </div>
+  <div id="adicionarCliente" class="section">
+    <h2>Adicionar Novo Cliente</h2>
+    <form id="clientForm">
+      <label for="clientFullName">Nome Completo:</label>
+      <input type="text" id="clientFullName" placeholder="Nome Completo do Cliente">
+      <label for="clientPhone">Número de Telefone:</label>
+      <input type="text" id="clientPhone" placeholder="Número de Telefone">
+      <label for="clientEmail">Email:</label>
+      <input type="email" id="clientEmail" placeholder="Email do Cliente">
+      <label for="clientPoints">Pontos:</label>
+      <input type="number" id="clientPoints" min="0" value="0">
+      <button type="button" id="saveClientBtn">Salvar Cliente</button>
+    </form>
+  </div>
 
-        <!-- Container: Buscar Cliente & Adicionar Pontos -->
-        <div class="dashboard-container">
-            <h3>Buscar Cliente</h3>
-            <label for="searchClient">Digite o nome do cliente:</label>
-            <input type="text" id="searchClient" placeholder="Buscar Cliente">
-            <button id="searchBtn">Buscar</button>
+  <div id="adicionarPontos" class="section">
+    <h2>Adicionar Pontos ao Cliente</h2>
+    <form id="pointsForm">
+      <label for="clientSelect">Selecione o Cliente:</label>
+      <select id="clientSelect">
+        <option value="">Selecione o cliente</option>
+      </select>
+      <label for="points">Pontos:</label>
+      <input type="number" id="points" min="1" max="10">
+      <button type="button" id="addPointsBtn">Adicionar Pontos</button>
+    </form>
+  </div>
 
-            <h3>Adicionar Pontos ao Cliente</h3>
-            <label for="clientSelect">Selecione o Cliente:</label>
-            <select id="clientSelect">
-                <option value="">Selecione o cliente</option>
-            </select>
-            <label for="points">Pontos:</label>
-            <input type="number" id="points" min="1" max="10">
-            <button id="addPointsBtn">Adicionar Pontos</button>
-        </div>
+  <div id="editarCliente" class="section">
+    <h2>Editar Cliente</h2>
+    <form id="editClientForm">
+      <label for="editClientFullName">Nome Completo:</label>
+      <input type="text" id="editClientFullName" placeholder="Nome Completo do Cliente">
+      <label for="editClientPhone">Número de Telefone:</label>
+      <input type="text" id="editClientPhone" placeholder="Número de Telefone">
+      <label for="editClientEmail">Email:</label>
+      <input type="email" id="editClientEmail" placeholder="Email do Cliente">
+      <label for="editClientPoints">Pontos:</label>
+      <input type="number" id="editClientPoints" min="0" value="0">
+      <button type="button" id="updateClientBtn">Atualizar Cliente</button>
+    </form>
+  </div>
 
-        <!-- Container: Exportar, Importar e Zerar Lista -->
-        <div class="dashboard-container">
-            <button id="exportBtn">Exportar Clientes</button>
-            <input type="file" id="importFile" accept=".json" style="display:none;">
-            <button id="importBtn">Importar Clientes</button>
-            <button id="resetClientsBtn">Zerar Clientes</button>
-        </div>
+  <div id="voucher" class="section">
+    <h2>Voucher</h2>
+    <p>Aqui você pode gerar ou gerenciar vouchers para os clientes.</p>
+  </div>
 
-        <!-- Container: Clientes com 10 pontos -->
-        <div class="dashboard-container">
-            <h3>Clientes com 10 Pontos</h3>
-            <ul id="clients">
-                <!-- Clientes com 10 pontos aparecerão aqui -->
-                
-            </ul>
-        </div>
-    </div>
+  <!-- Footer -->
+  <footer>
+    <p>
+      &copy; Douglas Moraes Dev<br>
+      <a href="https://wa.me/qr/F2Z744R5KWEPB1" target="_blank">Contato</a>
+    </p>
+  </footer>
 
-    <footer>
-        <p>&copy; Douglas Moraes Dev <br>
-            <a href="https://wa.me/qr/F2Z744R5KWEPB1" target="_blank"> Contato </a> 
-        </p>
-    </footer>
-
-    <script src="app.js"></script>
-    <script src="whatsapp.js"></script>
+  <!-- Inclusão do script -->
+  <script src="script.js"></script>
 </body>
 </html>
