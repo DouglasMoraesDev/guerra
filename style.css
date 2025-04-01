@@ -1,149 +1,181 @@
 /* Variáveis de Cores e Configurações Gerais */
 :root {
-    --primary-color: #ffffff;
-    --secondary-color: #615e6b;
-    --background-color: #000000;
-    --container-bg: #301442;
-    --text-color: #000000;
-    --header-bg: #500537;
-    --footer-bg: #00000000;
-    --footer-text: #ecf0f1;
-    --input-border: #cccccc;
-    --button-bg: black;
-    --button-text: #ffffff;
-    --section-margin: 20px;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --transition-speed: 0.3s;
-    --table-row-hover: rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Reset e Estilos Globais */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
-  
-  /* Header: Título e Logo */
+  --primary-color: #ffffff;
+  --secondary-color: #615e6b;
+  --background-color: #000000;
+  --container-bg: #301442;
+  --text-color: #000000;
+  --header-bg: #500537;
+  --footer-bg: #00000000;
+  --footer-text: #ecf0f1;
+  --input-border: #cccccc;
+  --button-bg: black;
+  --button-text: #ffffff;
+  --section-margin: 20px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+  --table-row-hover: rgba(255, 255, 255, 0.1);
+}
+
+/* Reset e Estilos Globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Header: Título e Logo */
+header {
+  background-color: var(--header-bg);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h1 {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 2.5rem;
+  color: var(--text-color);
+}
+header img {
+  height: 60px;
+}
+
+/* Menu de Navegação */
+nav {
+  background-color: var(--container-bg);
+  padding: 10px;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+nav ul li {
+  font-family: 'Oxanium', sans-serif;
+  color: var(--button-text);
+  cursor: pointer;
+  transition: color var(--transition-speed);
+}
+nav ul li:hover {
+  color: var(--secondary-color);
+}
+
+/* Seções */
+.section {
+  display: none;
+  padding: 20px;
+  background-color: var(--primary-color);
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+}
+.active {
+  display: block;
+}
+
+/* Formulários */
+form label {
+  font-family: 'Oxanium', sans-serif;
+  font-weight: 600;
+  margin: 10px 0 5px;
+  display: block;
+}
+form input,
+form select {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+}
+
+/* Botões */
+button {
+  font-family: 'Oxanium', sans-serif;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* Tabela de Clientes */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table caption {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1.5rem;
+  padding: 10px;
+  text-align: center;
+  background-color: var(--container-bg);
+  color: var(--text-color);
+}
+table th, table td {
+  border: 1px solid var(--input-border);
+  padding: 10px;
+  text-align: center;
+}
+table tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+table tbody tr:hover {
+  background-color: var(--table-row-hover);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  font-family: 'Oxanium', sans-serif;
+}
+
+/* Media Queries para Telas Pequenas */
+@media screen and (max-width: 600px) {
   header {
-    background-color: var(--header-bg);
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  header h1 {
-    font-family: 'Oxanium', sans-serif;
-    font-size: 2.5rem;
-    color: var(--text-color);
+    flex-direction: column;
+    text-align: center;
   }
   header img {
-    height: 60px;
-  }
-  
-  /* Menu de Navegação */
-  nav {
-    background-color: var(--container-bg);
-    padding: 10px;
+    margin-top: 10px;
   }
   nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 10px;
   }
-  nav ul li {
-    font-family: 'Oxanium', sans-serif;
-    color: var(--button-text);
-    cursor: pointer;
-    transition: color var(--transition-speed);
-  }
-  nav ul li:hover {
-    color: var(--secondary-color);
-  }
-  
-  /* Seções */
   .section {
-    display: none;
-    padding: 20px;
-    background-color: var(--primary-color);
-    margin: 20px;
-    border-radius: 8px;
-    box-shadow: var(--box-shadow);
-  }
-  .active {
-    display: block;
-  }
-  
-  /* Formulários */
-  form label {
-    font-family: 'Oxanium', sans-serif;
-    font-weight: 600;
-    margin: 10px 0 5px;
-    display: block;
-  }
-  form input,
-  form select {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border: 1px solid var(--input-border);
-    border-radius: 4px;
-  }
-  
-  /* Botões */
-  button {
-    font-family: 'Oxanium', sans-serif;
-    padding: 10px 20px;
-    margin: 10px 0;
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color var(--transition-speed), transform var(--transition-speed);
-  }
-  button:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-  }
-  
-  /* Tabela de Clientes */
-  table {
-    width: 100%;
-    border-collapse: collapse;
+    margin: 10px;
+    padding: 15px;
   }
   table caption {
-    font-family: 'Oxanium', sans-serif;
-    font-size: 1.5rem;
-    padding: 10px;
-    text-align: center;
-    background-color: var(--container-bg);
-    color: var(--text-color);
+    font-size: 1.2rem;
+    padding: 5px;
   }
   table th, table td {
-    border: 1px solid var(--input-border);
-    padding: 10px;
-    text-align: center;
+    padding: 5px;
+    font-size: 0.9rem;
   }
-  table tbody tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.05);
+  form input,
+  form select,
+  button {
+    font-size: 0.9rem;
+    padding: 8px;
   }
-  table tbody tr:hover {
-    background-color: var(--table-row-hover);
-  }
-  
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 10px;
-    background-color: var(--footer-bg);
-    color: var(--footer-text);
-    font-family: 'Oxanium', sans-serif;
-  }
-  
+}

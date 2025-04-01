@@ -17,7 +17,7 @@ const users = [
 ];
 
 // Função de login
-document.getElementById('loginBtn').addEventListener('click', () => {
+document.getElementById('loginBtn')?.addEventListener('click', () => {
     const inputUsername = document.getElementById('username').value;
     const inputPassword = document.getElementById('password').value;
 
@@ -42,10 +42,24 @@ document.getElementById('loginBtn').addEventListener('click', () => {
 
 // Verifica se o usuário está logado ao carregar a página
 if (localStorage.getItem('isLoggedIn') === 'true') {
-    document.getElementById('loginDiv').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('loginDiv') && (document.getElementById('loginDiv').style.display = 'none');
+    document.getElementById('dashboard') && (document.getElementById('dashboard').style.display = 'block');
     loadClients();
 }
+
+// Alterna a exibição das seções com base no menu clicado
+const menuItems = document.querySelectorAll('nav ul li');
+const sections = document.querySelectorAll('.section');
+
+menuItems.forEach(item => {
+  item.addEventListener('click', () => {
+    // Esconde todas as seções
+    sections.forEach(sec => sec.classList.remove('active'));
+    // Mostra a seção correspondente
+    const sectionId = item.getAttribute('data-section');
+    document.getElementById(sectionId).classList.add('active');
+  });
+});
 
 // Função para carregar os clientes e renderizar a tabela
 function loadClients() {
@@ -157,7 +171,7 @@ function editClient(index) {
 }
 
 // Função para buscar clientes 
-document.getElementById('searchBtn').addEventListener('click', () => {
+document.getElementById('searchBtn')?.addEventListener('click', () => {
     const searchTerm = document.getElementById('searchClient').value.toLowerCase();
 
     const clients = JSON.parse(localStorage.getItem('clients')) || [];
@@ -174,7 +188,7 @@ document.getElementById('searchBtn').addEventListener('click', () => {
     });
 });
 
-// Adicionar pontos ao cliente selecionado (mantida do original, com recarregamento)
+// Adicionar pontos ao cliente selecionado
 document.getElementById('addPointsBtn').addEventListener('click', () => {
     const selectedClientName = document.getElementById('clientSelect').value;
     const pointsToAdd = parseInt(document.getElementById('points').value);
@@ -198,16 +212,14 @@ document.getElementById('addPointsBtn').addEventListener('click', () => {
 });
 
 // Zerar clientes (limpar o localStorage)
-document.getElementById('resetClientsBtn').addEventListener('click', () => {
+document.getElementById('resetClientsBtn')?.addEventListener('click', () => {
     localStorage.removeItem('clients');
     alert('Todos os clientes foram removidos!');
-
-    // Recarrega a página para atualizar a tabela
     location.reload();
 });
 
 // Função para exportar clientes
-document.getElementById('exportBtn').addEventListener('click', () => {
+document.getElementById('exportBtn')?.addEventListener('click', () => {
     const clients = JSON.parse(localStorage.getItem('clients')) || [];
     const blob = new Blob([JSON.stringify(clients, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -219,11 +231,11 @@ document.getElementById('exportBtn').addEventListener('click', () => {
 });
 
 // Função para importar clientes
-document.getElementById('importBtn').addEventListener('click', () => {
+document.getElementById('importBtn')?.addEventListener('click', () => {
     document.getElementById('importFile').click();
 });
 
-document.getElementById('importFile').addEventListener('change', event => {
+document.getElementById('importFile')?.addEventListener('change', event => {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
@@ -243,7 +255,6 @@ document.getElementById('importFile').addEventListener('change', event => {
                 });
                 localStorage.setItem('clients', JSON.stringify(updatedClients));
                 alert('Clientes importados com sucesso!');
-                // Recarrega a página para atualizar a tabela
                 location.reload();
             } catch (error) {
                 alert('Erro ao importar o arquivo. Certifique-se de que o arquivo está no formato correto.');
@@ -257,13 +268,14 @@ document.getElementById('importFile').addEventListener('change', event => {
 function displayClients() {
     const clients = JSON.parse(localStorage.getItem('clients')) || [];
     const clientList = document.getElementById('clients');
+    if (!clientList) return; // Se a lista não existir na página, sai da função
     clientList.innerHTML = '';  // Limpa a lista de clientes
 
     clients.forEach(client => {
         const listItem = document.createElement('li');
         listItem.textContent = `${client.fullName} - Pontos: ${client.points || 0}`;
 
-        // Cria o botão de WhatsApp se o cliente tiver 10 pontos
+        // Cria o botão de WhatsApp se o cliente tiver 10 pontos ou mais
         if (client.points >= 10) {
             const whatsappButton = document.createElement('button');
             whatsappButton.textContent = 'Enviar Voucher';
@@ -282,7 +294,7 @@ function updateClientPoints(clientId, points) {
 
     if (clientIndex > -1) {
         clients[clientIndex].points += points;  // Adiciona pontos
-        localStorage.setItem('clients', JSON.stringify(clients));  // Atualiza o localStorage
+        localStorage.setItem('clients', JSON.stringify(clients));
         displayClients();  // Recarrega a lista de clientes
     }
 }
@@ -290,9 +302,8 @@ function updateClientPoints(clientId, points) {
 // Chama a função para exibir os clientes ao carregar a página
 displayClients();
 
-// Exemplo de função para enviar voucher (mantida do original)
+// Exemplo de função para enviar voucher
 function sendVoucher(client) {
-    // Exemplo: abre o WhatsApp com uma mensagem do voucher
     const voucherMessage = `Parabéns ${client.fullName}, você ganhou um voucher!`;
     const encodedMessage = encodeURIComponent(voucherMessage);
     const whatsappUrl = `https://wa.me/${client.phone}?text=${encodedMessage}`;
