@@ -3,9 +3,9 @@
   --primary-color: #ffffff;
   --secondary-color: #615e6b;
   --background-color: #000000;
-  --container-bg: #301442;
+  --container-bg: #4a4a4b;
   --text-color: #000000;
-  --header-bg: #500537;
+  --header-bg: #5c5a5b;
   --footer-bg: #00000000;
   --footer-text: #ecf0f1;
   --input-border: #cccccc;
@@ -58,6 +58,7 @@ nav ul {
   gap: 20px;
 }
 nav ul li {
+  text-align: center;
   font-family: 'Oxanium', sans-serif;
   color: var(--button-text);
   cursor: pointer;
@@ -138,14 +139,7 @@ table tbody tr:hover {
   background-color: var(--table-row-hover);
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  padding: 10px;
-  background-color: var(--footer-bg);
-  color: var(--footer-text);
-  font-family: 'Oxanium', sans-serif;
-}
+
 
 /* Media Queries para Telas Pequenas */
 @media screen and (max-width: 600px) {
